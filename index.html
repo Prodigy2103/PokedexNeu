@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/standard.css">
+    <link rel="stylesheet" href="style/singlecardview.css">
+    <link rel="stylesheet" href="style/cardview.css">
+    <title>Pokedex</title>
+</head>
+<body>
+
+    <!-- #region header -->
+    <header>
+            <div class="content">
+                <div class="headLogo">
+                    <h1>Pokedex</h1>
+                    <img src="./assets/icon/lock.png" alt="" />
+                </div>
+                <form action="">
+                    <input type="text" id="searchBar" class="searchBarInput" onkeyup="search()" placeholder="Pokemon suchen..."/>
+                    <input class="searchBarBtn" type="button" />
+                    <!-- onclick search -->
+                </form>
+            </div>
+        </header>
+    <!-- #endregion -->
+
+    <main>
+
+        <section id="pokeCards" class=""></section>
+
+    </main>
+    
+    <script src="template.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
