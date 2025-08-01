@@ -5,8 +5,10 @@ function getCardView({ spiritOne, id, name, index, type }) {
             <div class="cardInfos">
                 <p># ${id}</p>
                 <p class="cardName ${type}">${name}</p>
-                <div id="type${index}" class="typeForm"></div>
+                <div id="type" class="typeForm">${type}</div>
             </div>
         </div>
     `;
 }
+
+// Next step template singleCardView

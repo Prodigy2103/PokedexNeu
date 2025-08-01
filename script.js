@@ -1,7 +1,7 @@
 class pokemonInfo {
     // #region attributes
 
-    // Deklariert die Eigens_haft des Pokemons
+    // Deklariert die Eigenschaft des Pokemons
     name;
     spiritOne;
     spiritTwo;
@@ -13,7 +13,7 @@ class pokemonInfo {
     abilities = [];
 
     statics = {
-        // Deklariert 'stati_s' als Objekt, das die Basiswerte (Statistiken) des Pokemons enthält.
+        // Deklariert 'statics' als Objekt, das die Basiswerte (Statistiken) des Pokemons enthält.
         hp: 0,
         attack: 0,
         defense: 0,
@@ -22,11 +22,10 @@ class pokemonInfo {
         speed: 0,
     }; // #endregion
 
-    // Der '_onstru_tor' ist die Methode, die automatis_h aufgerufen wird, wenn ein neues Objekt der Klasse erstellt wird.
+    // Der 'constructor' ist die Methode, die automatisch aufgerufen wird, wenn ein neues Objekt der Klasse erstellt wird.
     constructor({
         _Name,
         _SpiritOne,
-        _SpiritTwo,
         _Index,
         _Type,
         _Statics,
@@ -36,19 +35,10 @@ class pokemonInfo {
     }) {
         this.name = _Name;
         this.spiritOne = _SpiritOne;
-        this.spiritTwo = _SpiritTwo;
         this.id = _Index;
-        this.type = _Type.map((t) => t.type.name); // extrahiere Typnamen
-        this.abilities = _Abilities.map((a) => a.ability.name);
+        this.type = _Type.map((t) => t.type.name); // Die map()-Funktion geht jedes Element im Array _Type durch. Für jedes Element t wird t.type.name extrahiert – also der name-Wert aus dem type-Objekt.
         this.weight = _Weight;
         this.height = _Height;
-        // Weist den 'base_stat'-Wert den Elementen zu
-        this.statics.hp = _Statics[0].base_stat;
-        this.statics.attack = _Statics[1].base_stat;
-        this.statics.defense = _Statics[2].base_stat;
-        this.statics.specialAtta_k = _Statics[3].base_stat;
-        this.statics.specialDefense = _Statics[4].base_stat;
-        this.statics.speed = _Statics[5].base_stat;
     }
 }
 
@@ -61,13 +51,10 @@ async function getPokemonApi() {
     const limit = 30;
 
     for (
-        let i = currentPokemonOffset + 1;
-        i <= currentPokemonOffset + limit;
-        i++
-    ) {
+        let i = currentPokemonOffset + 1; i <= currentPokemonOffset + limit; i++) 
+        {
         const pokemonResponse = await fetch(
-            "https://pokeapi.co/api/v2/pokemon/" + i
-        );
+            "https://pokeapi.co/api/v2/pokemon/" + i);
         const pokemonJson = await pokemonResponse.json();
 
         pokemonArray.push(
@@ -78,9 +65,7 @@ async function getPokemonApi() {
                 _Weight: pokemonJson.weight,
                 _Index: pokemonJson.id,
                 _SpiritOne: pokemonJson.sprites.front_default,
-                _SpiritTwo:
-                    pokemonJson.sprites.other?.["official-artwork"]
-                        ?.front_default || null,
+                _SpiritTwo: pokemonJson.sprites.other?.["official-artwork"]?.front_default || null,
                 _Type: pokemonJson.types,
                 _Statics: pokemonJson.stats,
             })
@@ -90,23 +75,6 @@ async function getPokemonApi() {
 
     renderCards(pokemonArray);
 }
-
-function renderCards(array) {
-    const cardSectionRef = document.getElementById("pokeCards");
-    cardSectionRef.innerHTML = ""; // Leere den Container vor dem Rendern
-
-    for (let i = 0; i < array.length; i++) {
-        cardSectionRef.innerHTML += getCardView({
-            spiritOne: array[i].spiritOne,
-            id: array[i].id,
-            name: array[i].name,
-            index: i,
-            type: array[i].type[0], // erster Typ
-        });
-    }
-}
-
-getPokemonApi();
 
 function search() {
     const inputRef = document.getElementById("searchBar");
@@ -130,3 +98,24 @@ function search() {
     // Wenn der Input weniger als 3 Zeichen lang und nicht leer ist,
     // wird der aktuelle Zustand der Karten beibehalten, bis mehr eingegeben wird.
 }
+
+function renderCards(array) {
+    const cardSectionRef = document.getElementById("pokeCards");
+    cardSectionRef.innerHTML = ""; // Leere den Container vor dem Rendern
+
+    for (let i = 0; i < array.length; i++) {
+        cardSectionRef.innerHTML += getCardView({
+            spiritOne: array[i].spiritOne,
+            id: array[i].id,
+            name: array[i].name,
+            index: i,
+            type: array[i].type,
+        });
+    }
+}
+
+
+getPokemonApi();
+
+
+

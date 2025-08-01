@@ -71,3 +71,23 @@ header {
         }
     }
 }
+
+.fire {
+    background: red;
+}
+
+.water {
+    background: blue;
+}
+
+.bug {
+    background: brown;
+}
+
+.grass {
+    background: green;
+}
+
+.normal {
+    background: lightcoral;
+}
