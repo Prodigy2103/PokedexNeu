@@ -43,7 +43,6 @@ class pokemonInfo {
 }
 
 const pokemonArray = [];
-
 let currentPokemonOffset = 0;
 let currentViewIndex = 0;
 
@@ -51,10 +50,13 @@ async function getPokemonApi() {
     const limit = 30;
 
     for (
-        let i = currentPokemonOffset + 1; i <= currentPokemonOffset + limit; i++) 
-        {
+        let i = currentPokemonOffset + 1;
+        i <= currentPokemonOffset + limit;
+        i++
+    ) {
         const pokemonResponse = await fetch(
-            "https://pokeapi.co/api/v2/pokemon/" + i);
+            "https://pokeapi.co/api/v2/pokemon/" + i
+        );
         const pokemonJson = await pokemonResponse.json();
 
         pokemonArray.push(
@@ -65,15 +67,44 @@ async function getPokemonApi() {
                 _Weight: pokemonJson.weight,
                 _Index: pokemonJson.id,
                 _SpiritOne: pokemonJson.sprites.front_default,
-                _SpiritTwo: pokemonJson.sprites.other?.["official-artwork"]?.front_default || null,
+                _SpiritTwo:
+                    pokemonJson.sprites.other?.["official-artwork"]
+                        ?.front_default || null,
                 _Type: pokemonJson.types,
                 _Statics: pokemonJson.stats,
             })
         );
     }
-    currentPokemonOffset += limit;
 
+    currentPokemonOffset += limit;
     renderCards(pokemonArray);
+    renderSingleViewCard(pokemonArray[currentViewIndexbegin]);
+}
+
+function renderCards(array) {
+    const cardSectionRef = document.getElementById("pokeCards");
+    cardSectionRef.innerHTML = "";
+
+    for (let i = 0; i < array.length; i++) {
+        cardSectionRef.innerHTML += getCardView({
+            spiritOne: array[i].spiritOne,
+            id: array[i].id,
+            name: array[i].name,
+            index: i,
+        });
+
+        // Jetzt die Typen für jede Karte einfügen
+        renderTypes(i, array);
+    }
+}
+
+function renderTypes(index, array) {
+    const typeRef = document.getElementById("types" + index);
+    if (!typeRef) return;
+
+    for (let i = 0; i < array[index].type.length; i++) {
+        typeRef.innerHTML += getTypeInfo(array[index].type[i]);
+    }
 }
 
 function search() {
@@ -98,24 +129,25 @@ function search() {
     // Wenn der Input weniger als 3 Zeichen lang und nicht leer ist,
     // wird der aktuelle Zustand der Karten beibehalten, bis mehr eingegeben wird.
 }
+// #endregion
 
-function renderCards(array) {
-    const cardSectionRef = document.getElementById("pokeCards");
-    cardSectionRef.innerHTML = ""; // Leere den Container vor dem Rendern
+function renderSingleViewCard(pokemon) {
+    const viewCardRef = document.getElementById("singleCard");
+    viewCardRef.innerHTML = ""; // Container leeren
 
-    for (let i = 0; i < array.length; i++) {
-        cardSectionRef.innerHTML += getCardView({
-            spiritOne: array[i].spiritOne,
-            id: array[i].id,
-            name: array[i].name,
-            index: i,
-            type: array[i].type,
-        });
-    }
+    viewCardRef.innerHTML = getSingleCardView({
+        spiritOne: pokemon.spiritOne,
+        id: pokemon.id,
+        name: pokemon.name,
+        index: currentViewIndex,
+        abilities: pokemon.abilities,
+        types: pokemon.type,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        statics: pokemon.statics,
+    });
+
+    // renderTypes();
 }
 
-
 getPokemonApi();
-
-
-

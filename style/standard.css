@@ -1,3 +1,6 @@
+@import url("https://fonts.cdnfonts.com/css/pokemon-solid");
+@import url("https://fonts.cdnfonts.com/css/pokemon-hollow");
+
 * {
     padding: 0;
     margin: 0;
@@ -21,7 +24,6 @@ footer {
     justify-content: center;
 
     .content {
-        border: 2px solid green;
         width: 100%;
         max-width: 1920px;
         height: 100dvh;
@@ -29,7 +31,6 @@ footer {
         flex-direction: column;
     }
 }
-
 
 header {
     width: 100%;
@@ -48,9 +49,13 @@ header {
             align-items: center;
             flex-direction: row;
 
+            h1 {
+                font-size: calc(16px + 3.2dvw);
+            }
+
             img {
-                width: 40px;
-                height: 40px;
+                width: 100px;
+                height: 100px;
             }
         }
 
@@ -61,33 +66,89 @@ header {
             justify-content: center;
             align-items: center;
 
-        #searchBar {
+            #searchBar {
+                border: 2px solid red;
+                width: 50%;
+                height: 5dvh;
+                text-align: center;
+            }
 
-        }
-
-        .searchBarInput {
-                
+            .searchbarBtn {
+                width: 50px;
+                height: 50px;
+                border: 2px solid green;
             }
         }
     }
 }
 
-.fire {
-    background: red;
+.d_none {
+    display: none;
 }
 
-.water {
-    background: blue;
+.type {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+    text-transform: capitalize;
 }
 
-.bug {
-    background: brown;
+.type.fire {
+    background-color: #f08030;
+}
+.type.water {
+    background-color: #6890f0;
+}
+.type.grass {
+    background-color: #78c850;
+}
+.type.electric {
+    background-color: #f8d030;
+    color: black;
+}
+.type.normal {
+    background-color: #a8a878;
+}
+.type.flying {
+    background-color: #a890f0;
+}
+.type.poison {
+    background-color: #a040a0;
+}
+.type.ground {
+    background-color: #e0c068;
+}
+.type.bug {
+    background-color: #a8b820;
+}
+.type.rock {
+    background-color: #b8a038;
+}
+.type.ghost {
+    background-color: #705898;
+}
+.type.steel {
+    background-color: #b8b8d0;
+}
+.type.psychic {
+    background-color: #f85888;
+}
+.type.ice {
+    background-color: #98d8d8;
+}
+.type.dragon {
+    background-color: #7038f8;
+}
+.type.dark {
+    background-color: #705848;
+}
+.type.fairy {
+    background-color: #f0b6bc;
 }
 
-.grass {
-    background: green;
-}
-
-.normal {
-    background: lightcoral;
+body {
+    font-family: "Pokemon Hollow", sans-serif;
 }

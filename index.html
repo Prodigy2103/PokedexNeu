@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="style/standard.css">
     <link rel="stylesheet" href="style/singlecardview.css">
     <link rel="stylesheet" href="style/cardview.css">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-hollow" rel="stylesheet">
+    <link rel="icon" href="assets/icon/pokeball.png">
     <title>Pokedex</title>
 </head>
 <body>
@@ -19,7 +22,6 @@
                 </div>
                 <form action="">
                     <input type="text" id="searchBar" class="searchBarInput" onkeyup="search()" placeholder="Pokemon suchen..."/>
-                    <input class="searchBarBtn" type="button" />
                     <!-- onclick search -->
                 </form>
             </div>
@@ -28,7 +30,14 @@
 
     <main>
 
-        <section id="pokeCards" class=""></section>
+        <section id="pokeCards" class="d_none">
+            <div class="content"></div>
+        </section>
+
+        <section id="singleCard" class="d_nne">
+            <div class="content">
+            </div>
+        </section>
 
     </main>
     
