@@ -79,7 +79,7 @@ async function getPokemonApi() {
 
     currentPokemonOffset += limit;
     renderCards(pokemonArray);
-    renderSingleViewCard(pokemonArray[currentViewIndex]);
+    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex);
 }
 
 function renderCards(array) {
@@ -101,10 +101,11 @@ function renderCards(array) {
 
 function renderTypes(index, array) {
     const typeRef = document.getElementById("types" + index);
-    if (!typeRef) return;
+    if (!typeRef) return; // Wenn typeRef nicht gefunden wurde (also null oder undefined ist), bricht die Funktion ab und macht nichts weiter. Das verhindert Fehler, falls das Element nicht existiert.
+    typeRef.innerHTML = ""; 
 
     for (let i = 0; i < array[index].type.length; i++) {
-        typeRef.innerHTML += getTypeInfo(array[index].type[i]);
+        typeRef.innerHTML += getTypeInfo(array[index].type[i]); // getTypeInfo(array[index].type[i]) wird aufgerufen und bekommt als Argument den jeweiligen Typ, z.B. "fire". Das Ergebnis dieser Funktion (vermutlich ein HTML-String) wird an den aktuellen Inhalt von typeRef.innerHTML angehängt (+= heißt "hinzufügen").
     }
 }
 
@@ -132,7 +133,7 @@ function search() {
 }
 // #endregion
 
-function renderSingleViewCard(pokemon) {
+function renderSingleViewCard(pokemon, index) {
     const viewCardRef = document.getElementById("singleCard");
     viewCardRef.innerHTML = ""; // Container leeren
 
@@ -148,31 +149,40 @@ function renderSingleViewCard(pokemon) {
         statics: pokemon.statics,
     });
 
-    renderTypes(pokemonArray);
+    renderTypes(index, pokemonArray);
 }
 
 function backward() {
     currentViewIndex = currentViewIndex > 0 ? currentViewIndex - 1 : pokemonArray.length - 1;
-    renderSingleViewCard(pokemonArray[currentViewIndex]);
+    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex);
 }
 
 function forward() {
-    currentViewIndex = (currentViewIndex + 1) % pokemonArray.length;
-    renderSingleViewCard(pokemonArray[currentViewIndex]);
+    currentViewIndex = currentViewIndex + 1;
+
+    if (currentViewIndex >= pokemonArray.length) {
+        currentViewIndex = 0;
+    }
+
+    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex);
 }
 
-function showCardView(pokemonArray) {
+function showCardView(index) {
+    const CardViewRef = document.getElementById("singleCard");
+    CardViewRef.classList.add("d-flex");
+    document.body.classList.add("no-scroll");
+
+    currentViewIndex = index; // 👉 Damit Vor/Zurück auch funktioniert
+    renderSingleViewCard(pokemonArray[index]);
+}
+
+function closeViewCard() {
     const CardViewRef = document.getElementById('singleCard');
-    CardViewRef.classList.add('d-flex');
-    document.body.classList.add('no-scroll');
-
-    renderCards(pokemonArray);
+    CardViewRef.classList.remove('d-flex');
+    document.body.classList.remove('no-scroll');
 }
-
-// function closeViewCard() {
-//     const CardViewRef = document.getElementById('singleCard');
-//     CardViewRef.classList.remove('d-flex');
-//     document.body.classList.remove('no-scroll');
-// }
 
 getPokemonApi();
+
+
+// Erklärung zur Änderung der showCardView function stehen im Lerntagebuch

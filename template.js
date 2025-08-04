@@ -17,7 +17,7 @@ function getTypeInfo(type){
 
 function getSingleCardView({ spiritOne, id, name, index, height, weight, types}) {
     return `
-            <div class="viewSingleCard">
+            <div class="viewSingleCard" onclick="event.stopPropagation()">
             <img src="${spiritOne}" alt="${name}">
                 <div class="headLine ${types}">
                     <p>#${id}</p>
@@ -30,7 +30,7 @@ function getSingleCardView({ spiritOne, id, name, index, height, weight, types})
                         .map(
                             (type) =>
                                 `<span class="type ${type}">${type}</span>`
-                        )}
+                        ).join("")}
                 </div>
 
                 <nav>

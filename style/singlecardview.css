@@ -7,35 +7,6 @@
     align-items: center;
     top: 0;
 
-    .viewSingleCard {
-        width: 50%;
-        height: auto;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        background: white;
-        padding: 5rem 0;
-        border-radius: 1rem;
-
-        img {
-            height: 10rem;
-            width: 10rem;
-            object-position: bottom;
-            position: absolute;
-            top: -13%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            filter: drop-shadow(4px 4px 8px black);
-        }
-
-        h2 {
-            font-size: calc(16px + 1dvw);
-        }
-
-        p {
-            font-size: calc(16px + 0.7dvw);
-        }
-    }
     .headLine {
         display: flex;
         align-items: center;
@@ -61,8 +32,10 @@
     }
 
     nav {
+        padding: 0.5rem;
         width: 100%;
         display: flex;
+        gap: 10px;
 
         p {
             width: 100%;
@@ -72,6 +45,7 @@
             align-items: center;
             background: lightblue;
             border: 1px solid black;
+            border-radius: 5px;
         }
     }
 
@@ -81,9 +55,11 @@
 
     .contentDesc {
         width: 100%;
+        display: flex;
+        justify-content: center;
 
         table {
-            width: 100%;
+            width: 80%;
 
             td {
                 padding-left: 20px;
@@ -113,3 +89,40 @@
         }
     }
 }
+
+.viewSingleCard {
+        width: 50%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        background: white;
+        padding: 5rem 0;
+        border-radius: 1rem;
+        overflow: auto;
+
+        img {
+            height: 10rem;
+            width: 10rem;
+            object-position: bottom;
+            position: absolute;
+            top: -3%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            filter: drop-shadow(4px 4px 8px black);
+            z-index: 20;
+        }
+
+        h2 {
+            font-size: calc(16px + 1dvw);
+        }
+
+        p {
+            top: 25px;
+            font-size: calc(16px + 0.7dvw);
+        }
+    }
+
+    .viewSingleCard:hover {
+        box-shadow: 5px 5px 10px black;
+    }
