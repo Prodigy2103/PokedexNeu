@@ -93,7 +93,6 @@ function renderCards(array) {
             index: i,
         });
 
-        // Jetzt die Typen für jede Karte einfügen
         renderTypes(i, array);
     }
 }
@@ -160,18 +159,19 @@ function forward() {
     renderSingleViewCard(pokemonArray[currentViewIndex]);
 }
 
-function showCardView(pokemonArray) {
+function showCardView(pokemon) {
     const CardViewRef = document.getElementById('singleCard');
     CardViewRef.classList.add('d-flex');
     document.body.classList.add('no-scroll');
 
-    renderCards(pokemonArray);
+    renderSingleViewCard(pokemon);
 }
 
-// function closeCardView() {
-//     const CardViewRef = document.getElementById('singleCard');
-//     CardViewRef.classList.remove('d-flex');
-//     document.body.classList.remove('no-scroll');
-// }
+function closeCardView() {
+    const CardViewRef = document.getElementById('singleCard');
+    CardViewRef.classList.remove('d-flex');
+    document.body.classList.remove('no-scroll');
+
+}
 
 getPokemonApi();
