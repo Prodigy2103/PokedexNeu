@@ -17,7 +17,7 @@ class pokemonInfo {
         hp: 0,
         attack: 0,
         defense: 0,
-        specialAtta_k: 0,
+        specialAttack: 0,
         specialDefense: 0,
         speed: 0,
     }; // #endregion
@@ -37,6 +37,7 @@ class pokemonInfo {
         this.spiritOne = _SpiritOne;
         this.id = _Index;
         this.type = _Type.map((t) => t.type.name); // Die map()-Funktion geht jedes Element im Array _Type durch. Für jedes Element t wird t.type.name extrahiert – also der name-Wert aus dem type-Objekt.
+        this.abilities = _Abilities.map(a => a.ability.name);
         this.weight = _Weight;
         this.height = _Height;
     }
@@ -93,6 +94,7 @@ function renderCards(array) {
             index: i,
         });
 
+        // Jetzt die Typen für jede Karte einfügen
         renderTypes(i, array);
     }
 }
@@ -146,7 +148,7 @@ function renderSingleViewCard(pokemon) {
         statics: pokemon.statics,
     });
 
-    renderTypes(currentViewIndex, pokemonArray);
+    renderTypes(pokemonArray);
 }
 
 function backward() {
@@ -159,19 +161,18 @@ function forward() {
     renderSingleViewCard(pokemonArray[currentViewIndex]);
 }
 
-function showCardView(pokemon) {
+function showCardView(pokemonArray) {
     const CardViewRef = document.getElementById('singleCard');
     CardViewRef.classList.add('d-flex');
     document.body.classList.add('no-scroll');
 
-    renderSingleViewCard(pokemon);
+    renderCards(pokemonArray);
 }
 
-function closeCardView() {
-    const CardViewRef = document.getElementById('singleCard');
-    CardViewRef.classList.remove('d-flex');
-    document.body.classList.remove('no-scroll');
-
-}
+// function closeViewCard() {
+//     const CardViewRef = document.getElementById('singleCard');
+//     CardViewRef.classList.remove('d-flex');
+//     document.body.classList.remove('no-scroll');
+// }
 
 getPokemonApi();
