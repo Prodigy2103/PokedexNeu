@@ -86,6 +86,14 @@ header {
     display: none;
 }
 
+.d-flex {
+    display: flex;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
 .type {
     display: inline-block;
     padding: 4px 8px;

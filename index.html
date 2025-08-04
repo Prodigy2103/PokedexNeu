@@ -30,16 +30,20 @@
 
     <main>
 
-        <section id="pokeCards" class="d_none">
-            <div class="content"></div>
-        </section>
-
-        <section id="singleCard" class="d_nne">
+        <section id="pokeCards">
             <div class="content">
+
+                <div class="loadBtn">
+                <button type="button" onclick="getPokemonApi()">load Pokemon</button>
             </div>
+            </div>
+            
         </section>
 
     </main>
+
+    <section id="singleCard" class="d_none">
+        </section>
     
     <script src="template.js"></script>
     <script src="script.js"></script>

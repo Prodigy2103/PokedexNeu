@@ -78,7 +78,7 @@ async function getPokemonApi() {
 
     currentPokemonOffset += limit;
     renderCards(pokemonArray);
-    renderSingleViewCard(pokemonArray[currentViewIndexbegin]);
+    renderSingleViewCard(pokemonArray[currentViewIndex]);
 }
 
 function renderCards(array) {
@@ -147,7 +147,31 @@ function renderSingleViewCard(pokemon) {
         statics: pokemon.statics,
     });
 
-    // renderTypes();
+    renderTypes(currentViewIndex, pokemonArray);
 }
+
+function backward() {
+    currentViewIndex = currentViewIndex > 0 ? currentViewIndex - 1 : pokemonArray.length - 1;
+    renderSingleViewCard(pokemonArray[currentViewIndex]);
+}
+
+function forward() {
+    currentViewIndex = (currentViewIndex + 1) % pokemonArray.length;
+    renderSingleViewCard(pokemonArray[currentViewIndex]);
+}
+
+function showCardView(pokemonArray) {
+    const CardViewRef = document.getElementById('singleCard');
+    CardViewRef.classList.add('d-flex');
+    document.body.classList.add('no-scroll');
+
+    renderCards(pokemonArray);
+}
+
+// function closeCardView() {
+//     const CardViewRef = document.getElementById('singleCard');
+//     CardViewRef.classList.remove('d-flex');
+//     document.body.classList.remove('no-scroll');
+// }
 
 getPokemonApi();
