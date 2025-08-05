@@ -49,41 +49,6 @@ const pokemonArray = [];
 let currentPokemonOffset = 0;
 let currentViewIndex = 0;
 
-// async function getPokemonApi() {
-//     const limit = 30;
-
-//     for (
-//         let i = currentPokemonOffset + 1;
-//         i <= currentPokemonOffset + limit;
-//         i++
-//     ) {
-//         const pokemonResponse = await fetch(
-//             "https://pokeapi.co/api/v2/pokemon/" + i
-//         );
-//         const pokemonJson = await pokemonResponse.json();
-
-//         pokemonArray.push(
-//             new pokemonInfo({
-//                 _Abilities: pokemonJson.abilities,
-//                 _Name: pokemonJson.name,
-//                 _Height: pokemonJson.height,
-//                 _Weight: pokemonJson.weight,
-//                 _Index: pokemonJson.id,
-//                 _SpiritOne: pokemonJson.sprites.front_default,
-//                 _SpiritTwo:
-//                     pokemonJson.sprites.other?.["official-artwork"]
-//                         ?.front_default || null,
-//                 _Type: pokemonJson.types,
-//                 _Statics: pokemonJson.stats,
-//             })
-//         );
-//     }
-
-//     currentPokemonOffset += limit;
-//     renderCards(pokemonArray);
-//     renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex);
-// }
-
 async function getPokemonApi() {
     showLoader();
 
@@ -122,7 +87,7 @@ async function getPokemonApi() {
 
     closeLoader();
 }
-
+// #region renderCards and types
 function renderCards(array) {
     const cardSectionRef = document.getElementById("pokeCards");
     cardSectionRef.innerHTML = "";
@@ -149,29 +114,26 @@ function renderTypes(index, array) {
         typeRef.innerHTML += getTypeInfo(array[index].type[i]); // getTypeInfo(array[index].type[i]) wird aufgerufen und bekommt als Argument den jeweiligen Typ, z.B. "fire". Das Ergebnis dieser Funktion (vermutlich ein HTML-String) wird an den aktuellen Inhalt von typeRef.innerHTML angehängt (+= heißt "hinzufügen").
     }
 }
+// #endregion
 
-function toggleButton() {
-    const input = document.getElementById("searchBar").value;
-    const button = document.getElementById("searchButton");
-    button.disabled = input.length < 3;
-}
-
+// #region searchBar
 function search() {
-    const inputRef = document.getElementById("searchBar");
-    const inputValue = inputRef.value.toLowerCase();
+    const inputRef = document.getElementById("searchBar"); // Holt sich eine Referenz zum Eingabefeld.
+    const inputValue = inputRef.value.toLowerCase(); // Speichert den eingegebenen Wert in Kleinbuchstaben.
 
     const result = pokemonArray.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(inputValue)
+        pokemon.name.toLowerCase().includes(inputValue) // Filtert das pokemonArray nach Pokémon, deren Name den Suchtext enthält (unabhängig von Groß-/Kleinschreibung)
     );
 
-    if (inputValue === "") {
+    if (inputValue === "") { // Prüft, ob das Eingabefeld leer ist.
         renderCards(pokemonArray); // Zeige alle
     } else {
-        renderCards(result); // Zeige Suchergebnisse
-    }
+        renderCards(result); // Zeige nur die gefilterten Pokémon.
+    }  
 }
 // #endregion
 
+// #region singleViewCard
 function renderSingleViewCard(pokemon, index) {
     const viewCardRef = document.getElementById("singleCard");
     viewCardRef.innerHTML = ""; // Container leeren
@@ -190,13 +152,9 @@ function renderSingleViewCard(pokemon, index) {
 
     renderTypes(index, pokemonArray);
 }
+// #endregion
 
-function backward() {
-    currentViewIndex =
-        currentViewIndex > 0 ? currentViewIndex - 1 : pokemonArray.length - 1; // Wenn currentViewIndex größer als 0 ist, wird 1 abgezogen (zurück zur vorherigen Karte). Wenn currentViewIndex 0 ist, wird zum letzten Index des Arrays (pokemonArray.length - 1) gesprungen (Zirkularität).
-    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex); // Zeigt die Karte an, die jetzt durch currentViewIndex bestimmt wird.
-}
-
+// #region forward and backward button
 function forward() {
     currentViewIndex = currentViewIndex + 1; // Erhöht den currentViewIndex um 1 (nächste Karte).
 
@@ -208,6 +166,14 @@ function forward() {
     renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex); // Zeigt die Karte an, die durch den neuen Index bestimmt wird.
 }
 
+function backward() {
+    currentViewIndex =
+        currentViewIndex > 0 ? currentViewIndex - 1 : pokemonArray.length - 1; // Wenn currentViewIndex größer als 0 ist, wird 1 abgezogen (zurück zur vorherigen Karte). Wenn currentViewIndex 0 ist, wird zum letzten Index des Arrays (pokemonArray.length - 1) gesprungen (Zirkularität).
+    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex); // Zeigt die Karte an, die jetzt durch currentViewIndex bestimmt wird.
+}
+// #endregion
+
+// #region show and clos ViewCard
 function showCardView(index) {
     const CardViewRef = document.getElementById("singleCard"); // Holt das DOM-Element mit der ID singleCard.
     CardViewRef.classList.add("d-flex"); // Fügt die CSS-Klasse d-flex hinzu, damit die Karte sichtbar und als flex-container angezeigt wird.
@@ -222,7 +188,9 @@ function closeViewCard() {
     CardViewRef.classList.remove("d-flex"); // Entfernt die Sichtbarkeitsklasse, sodass die Ansicht ausgeblendet wird.
     document.body.classList.remove("no-scroll"); // Erlaubt wieder das Scrollen der Seite.
 }
+// #endregion
 
+// #region render Info and Stats
 function renderStats(index) {
     const contentDescRef = document.getElementById("desc" + index);
     const stats = pokemonArray[index].statics; // Speichert das statics-Array des Pokémon an der Position index in der Variable stats.
@@ -249,20 +217,23 @@ function renderInfo(index) {
         abilities: pokemonArray[index].abilities,
     });
 }
+// #endregion
 
+// #region loader show and close
 function showLoader() {
-    const loader = document.getElementById("loader");
-    if (loader) {
-        loader.classList.remove("hidden");
+    const loader = document.getElementById("loader"); // Sucht im HTML-Dokument nach einem Element mit der ID loader und speichert es in der Variablen loader.
+    if (loader) { // Prüft, ob das Element mit der ID loader existiert (also nicht null ist).
+        loader.classList.remove("hidden"); // Entfernt die CSS-Klasse "hidden" vom loader-Element, wodurch das Element sichtbar wird (angenommen, .hidden versteckt das Element).
     }
 }
 
 function closeLoader() {
     const loader = document.getElementById("loader");
     if (loader) {
-        loader.classList.add("hidden");
+        loader.classList.add("hidden"); // Fügt die CSS-Klasse "hidden" zum loader-Element hinzu, wodurch es ausgeblendet wird.
     }
 }
+// #endregion
 
 getPokemonApi();
 

@@ -30,12 +30,10 @@
                     <input
                         type="text"
                         id="searchBar"
-                        placeholder="search Pokemon"
-                        oninput="toggleButton()"
-                    />
+                        placeholder="search Pokemon"/>
 
                     <button type="button" id="searchButton" onclick="search()">
-                        Suchen
+                        Search
                     </button>
                     <!-- onclick search -->
                 </form>
@@ -44,12 +42,12 @@
         <!-- #endregion -->
 
         <main>
-
             <div id="loader">
                 <img src="assets/icon/pokeball.png" alt="Pokéball Loader" />
             </div>
 
-            <section id="pokeCards" class="content"></section>
+            <section id="pokeCards" class="content">
+            </section>
 
             <div class="loadBtn">
                 <button type="button" onclick="getPokemonApi()">
@@ -59,10 +57,8 @@
         </main>
 
         <section
-            id="singleCard"
-            class="d_none"
-            onclick="closeViewCard()"
-        ></section>
+            id="singleCard" class="d_none" onclick="closeViewCard()">
+        </section>
 
         <footer>
             <div class="content">© Design by Gühne, Marcus</div>

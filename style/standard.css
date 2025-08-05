@@ -1,6 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/pokemon-solid");
 @import url("https://fonts.cdnfonts.com/css/pokemon-hollow");
 
+/* #region standardCSS */
 * {
     padding: 0;
     margin: 0;
@@ -33,9 +34,16 @@ footer {
     }
 }
 
+body {
+    font-family: "Pokemon Hollow", sans-serif;
+}
+/* #endregion */
+
+/* #region header */
 header {
     width: 100%;
     height: 10dvh;
+    background: #e0c068;
 
     .content {
         height: 10dvh;
@@ -52,7 +60,7 @@ header {
             width: 60px;
             height: 60px;
 
-            @media(max-width: 550px) {
+            @media (max-width: 550px) {
                 display: none;
             }
         }
@@ -60,28 +68,47 @@ header {
         .headLogo {
             width: 50%;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
             gap: 2rem;
             padding-left: 2rem;
 
-            @media(max-width: 550px) {
+            @media (max-width: 550px) {
                 justify-content: start;
             }
         }
     }
 
     form {
-        width: 50%;
+        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 20px;
+
+        button {
+            width: 15%;
+            height: 2em;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            box-shadow: 5px 5px 10px black;
+        }
     }
     #searchBar {
-        width: 50%;
-        text-align: center;
+        width: 30%;
+        height: 2em;
+        border-radius: 5px;
+        padding-left: 10px;
+        text-align: left;
+        border: none;
     }
 }
+/* #endregion */
+
 
 .d_none {
     display: none;
@@ -95,6 +122,8 @@ header {
     overflow: hidden;
 }
 
+
+/* #region typeColors */
 .type {
     display: inline-block;
     padding: 4px 8px;
@@ -157,11 +186,9 @@ header {
 .type.fairy {
     background-color: #f0b6bc;
 }
+/* #endregion */
 
-body {
-    font-family: "Pokemon Hollow", sans-serif;
-}
-
+/* #region loadBtn */
 .loadBtn {
     display: flex;
     justify-content: center;
@@ -181,7 +208,9 @@ body {
         box-shadow: 5px 5px 10px black;
     }
 }
+/* #endregion */
 
+/* #region footer */
 footer {
     width: 100%;
     height: 10dvh;
@@ -192,3 +221,4 @@ footer {
         padding: 0;
     }
 }
+/* #endregion */

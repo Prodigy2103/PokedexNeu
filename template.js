@@ -13,7 +13,7 @@ function getTypeInfo(type){
     return `<span class="type ${type}">${type}</span>`
 }
 
-// Next step template singleCardView
+
 
 function getSingleCardView({ spiritOne, id, name, index, height, weight, types}) {
     return `
