@@ -48,7 +48,6 @@ header {
     .content {
         height: 10dvh;
         flex-direction: row;
-        justify-content: space-between;
         align-items: center;
         padding: 0;
 
@@ -60,7 +59,7 @@ header {
             width: 60px;
             height: 60px;
 
-            @media (max-width: 550px) {
+            @media (max-width: 500px) {
                 display: none;
             }
         }
@@ -70,24 +69,25 @@ header {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
+            gap: 5em;
             padding-left: 2rem;
 
-            @media (max-width: 550px) {
+            @media (max-width: 850px) {
                 justify-content: start;
+                padding-left: 1rem;
             }
         }
     }
 
     form {
-        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
+        width: 50%;
 
         button {
-            width: 15%;
+            width: 100px;
             height: 2em;
             border-radius: 5px;
             cursor: pointer;
@@ -99,12 +99,16 @@ header {
         }
     }
     #searchBar {
-        width: 30%;
+        width: 100px;
         height: 2em;
         border-radius: 5px;
         padding-left: 10px;
         text-align: left;
         border: none;
+
+        /* @media(max-width: 870px) {
+            width: 120px;
+        } */
     }
 }
 /* #endregion */
