@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/standard.css">
-    <link rel="stylesheet" href="style/singlecardview.css">
-    <link rel="stylesheet" href="style/cardview.css">
-    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/pokemon-hollow" rel="stylesheet">
-    <link rel="icon" href="assets/icon/pokeball.png">
-    <title>Pokedex</title>
-</head>
-<body>
-
-    <!-- #region header -->
-    <header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style/standard.css" />
+        <link rel="stylesheet" href="style/singlecardview.css" />
+        <link rel="stylesheet" href="style/cardview.css" />
+        <link
+            href="https://fonts.cdnfonts.com/css/pokemon-solid"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.cdnfonts.com/css/pokemon-hollow"
+            rel="stylesheet"
+        />
+        <link rel="icon" href="assets/icon/pokeball.png" />
+        <title>Pokedex</title>
+    </head>
+    <body>
+        <!-- #region header -->
+        <header>
             <div class="content">
                 <div class="headLogo">
-                    <h1>Pokedex</h1>
-                    <img src="./assets/icon/lock.png" alt="" />
+                <h1>Pokedex</h1>
+                <img src="./assets/icon/lock.png" alt="" />
                 </div>
                 <form action="">
-                    <input type="text" id="searchBar" class="searchBarInput" onkeyup="search()" placeholder="Pokemon suchen..."/>
+                    <input
+                        type="text"
+                        id="searchBar"
+                        onkeyup="search()"
+                        placeholder="Pokemon suchen..."
+                    />
                     <!-- onclick search -->
                 </form>
             </div>
         </header>
-    <!-- #endregion -->
+        <!-- #endregion -->
 
-    <main>
+        <main>
+            <section id="pokeCards" class="content">
+                <!-- <div class="content">
+            </div> -->
+            </section>
+        </main>
 
-        <section id="pokeCards">
-            <div class="content">
-            </div>
-            
-        </section>
+        <section
+            id="singleCard"
+            class="d_none"
+            onclick="closeViewCard()"
+        ></section>
 
-    </main>
-
-    <section id="singleCard" class="d_none" onclick="closeViewCard()">
-        </section>
-    
-    <script src="template.js"></script>
-    <script src="script.js"></script>
-</body>
+        <script src="template.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>

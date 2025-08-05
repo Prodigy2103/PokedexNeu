@@ -1,9 +1,12 @@
-#pokeCards {
+.content {
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 10rem 0;
+    padding: 5rem 0;
 
     .card {
         background-color: white;
