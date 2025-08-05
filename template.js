@@ -34,8 +34,8 @@ function getSingleCardView({ spiritOne, id, name, index, height, weight, types})
                 </div>
 
                 <nav>
-                    <p id="navInfo${index}" class="highlight" onclick="renderInfo(${index})">Info</p>
-                    <p id="navStats${index}" class="highlight" onclick="renderStats(${index})">Stats</p>
+                    <p id="navInfo${index}" class="hoverLight" onclick="renderInfo(${index})">Info</p>
+                    <p id="navStats${index}" class="hoverLight" onclick="renderStats(${index})">Stats</p>
                 </nav>
 
                 <div id="desc${index}" class="contentDesc">

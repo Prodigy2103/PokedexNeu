@@ -13,6 +13,7 @@
 main {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     background: rgb(144, 144, 71);
 }
 
@@ -43,37 +44,45 @@ header {
         align-items: center;
         padding: 0;
 
-            h1 {
-                width: 20%;
-            }
+        h1 {
+            width: 20%;
+        }
 
-            img {
-                width: 60px;
-                height: 60px;
-            }
+        img {
+            width: 60px;
+            height: 60px;
 
-            .headLogo {
-                width: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
+            @media(max-width: 550px) {
+                display: none;
             }
         }
 
-        form {
+        .headLogo {
             width: 50%;
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
+            gap: 2rem;
+            padding-left: 2rem;
 
-        }
-        #searchBar {
-                width: 50%;
-                text-align: center;
+            @media(max-width: 550px) {
+                justify-content: start;
             }
+        }
     }
-    
+
+    form {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #searchBar {
+        width: 50%;
+        text-align: center;
+    }
+}
+
 .d_none {
     display: none;
 }
@@ -151,4 +160,35 @@ header {
 
 body {
     font-family: "Pokemon Hollow", sans-serif;
+}
+
+.loadBtn {
+    display: flex;
+    justify-content: center;
+    height: 4rem;
+    padding: 10px 0;
+
+    button {
+        width: 20%;
+        height: 3em;
+        font-family: "Pokemon Solid", sans-serif;
+        border-radius: 0.5em;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        box-shadow: 5px 5px 10px black;
+    }
+}
+
+footer {
+    width: 100%;
+    height: 10dvh;
+    background: #e0c068;
+
+    .content {
+        height: 10dvh;
+        padding: 0;
+    }
 }

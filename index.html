@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style/standard.css" />
+        <link rel="stylesheet" href="style/load.css" />
         <link rel="stylesheet" href="style/singlecardview.css" />
         <link rel="stylesheet" href="style/cardview.css" />
         <link
@@ -22,16 +23,20 @@
         <header>
             <div class="content">
                 <div class="headLogo">
-                <h1>Pokedex</h1>
-                <img src="./assets/icon/lock.png" alt="" />
+                    <h1>Pokedex</h1>
+                    <img src="./assets/icon/lock.png" alt="" />
                 </div>
                 <form action="">
                     <input
                         type="text"
                         id="searchBar"
-                        onkeyup="search()"
-                        placeholder="Pokemon suchen..."
+                        placeholder="search Pokemon"
+                        oninput="toggleButton()"
                     />
+
+                    <button type="button" id="searchButton" onclick="search()">
+                        Suchen
+                    </button>
                     <!-- onclick search -->
                 </form>
             </div>
@@ -39,10 +44,18 @@
         <!-- #endregion -->
 
         <main>
-            <section id="pokeCards" class="content">
-                <!-- <div class="content">
-            </div> -->
-            </section>
+
+            <div id="loader">
+                <img src="assets/icon/pokeball.png" alt="Pokéball Loader" />
+            </div>
+
+            <section id="pokeCards" class="content"></section>
+
+            <div class="loadBtn">
+                <button type="button" onclick="getPokemonApi()">
+                    load more
+                </button>
+            </div>
         </main>
 
         <section
@@ -50,6 +63,10 @@
             class="d_none"
             onclick="closeViewCard()"
         ></section>
+
+        <footer>
+            <div class="content">© Design by Gühne, Marcus</div>
+        </footer>
 
         <script src="template.js"></script>
         <script src="script.js"></script>

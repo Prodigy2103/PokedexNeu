@@ -49,7 +49,44 @@ const pokemonArray = [];
 let currentPokemonOffset = 0;
 let currentViewIndex = 0;
 
+// async function getPokemonApi() {
+//     const limit = 30;
+
+//     for (
+//         let i = currentPokemonOffset + 1;
+//         i <= currentPokemonOffset + limit;
+//         i++
+//     ) {
+//         const pokemonResponse = await fetch(
+//             "https://pokeapi.co/api/v2/pokemon/" + i
+//         );
+//         const pokemonJson = await pokemonResponse.json();
+
+//         pokemonArray.push(
+//             new pokemonInfo({
+//                 _Abilities: pokemonJson.abilities,
+//                 _Name: pokemonJson.name,
+//                 _Height: pokemonJson.height,
+//                 _Weight: pokemonJson.weight,
+//                 _Index: pokemonJson.id,
+//                 _SpiritOne: pokemonJson.sprites.front_default,
+//                 _SpiritTwo:
+//                     pokemonJson.sprites.other?.["official-artwork"]
+//                         ?.front_default || null,
+//                 _Type: pokemonJson.types,
+//                 _Statics: pokemonJson.stats,
+//             })
+//         );
+//     }
+
+//     currentPokemonOffset += limit;
+//     renderCards(pokemonArray);
+//     renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex);
+// }
+
 async function getPokemonApi() {
+    showLoader();
+
     const limit = 30;
 
     for (
@@ -82,6 +119,8 @@ async function getPokemonApi() {
     currentPokemonOffset += limit;
     renderCards(pokemonArray);
     renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex);
+
+    closeLoader();
 }
 
 function renderCards(array) {
@@ -111,27 +150,25 @@ function renderTypes(index, array) {
     }
 }
 
+function toggleButton() {
+    const input = document.getElementById("searchBar").value;
+    const button = document.getElementById("searchButton");
+    button.disabled = input.length < 3;
+}
+
 function search() {
     const inputRef = document.getElementById("searchBar");
-    const inputValue = inputRef.value.toLowerCase(); // Den Input-Wert direkt in Kleinbuchstaben umwandeln
+    const inputValue = inputRef.value.toLowerCase();
 
-    // Filtert das pokemonArray basierend auf dem Namen.
-    // wandeln auch den Pokemon-Namen in Kleinbuchstaben um, um einen
-    // um den Vergleich zu gewährleisten.
     const result = pokemonArray.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(inputValue)
     );
 
-    // Überprüfe die Länge des eingegebenen Suchbegriffs
-    if (inputValue.length >= 3) {
-        // Wenn der Suchbegriff 3 oder mehr Zeichen hat, zeige die gefilterten Ergebnisse an.
-        renderCards(result); // Rufe deine vorhandene renderCards-Funktion auf
-    } else if (inputValue === "") {
-        // Wenn das Suchfeld leer ist, zeige wieder alle Pokemon an.
-        renderCards(pokemonArray); // Zeige alle ursprünglichen Pokemon an
+    if (inputValue === "") {
+        renderCards(pokemonArray); // Zeige alle
+    } else {
+        renderCards(result); // Zeige Suchergebnisse
     }
-    // Wenn der Input weniger als 3 Zeichen lang und nicht leer ist,
-    // wird der aktuelle Zustand der Karten beibehalten, bis mehr eingegeben wird.
 }
 // #endregion
 
@@ -190,9 +227,10 @@ function renderStats(index) {
     const contentDescRef = document.getElementById("desc" + index);
     const stats = pokemonArray[index].statics; // Speichert das statics-Array des Pokémon an der Position index in der Variable stats.
 
-    contentDescRef.innerHTML = getStats({ // Setzt den HTML-Inhalt eines Elements (vermutlich eine Beschreibung) mit dem von der Funktion
+    contentDescRef.innerHTML = getStats({
+        // Setzt den HTML-Inhalt eines Elements (vermutlich eine Beschreibung) mit dem von der Funktion
         index: index, // Übergibt den aktuellen Index des Pokémon an die getStats()-Funktion.
-        hp: stats[0].base_stat, // Übergibt den Basiswert für HP (Lebenspunkte), der sich im ersten Element des stats-Arrays befindet. Gilt auch für folgende Codezeilen
+        hp: stats[0].base_stat, // Übergibt den Basiswert für HP (Lebenspunkte), der sich im ersten Element des globalen stats-Arrays befindet. Gilt auch für folgende Codezeilen
         attack: stats[1].base_stat,
         defense: stats[2].base_stat,
         specialAttack: stats[3].base_stat,
@@ -210,6 +248,20 @@ function renderInfo(index) {
         weight: pokemonArray[index].weight,
         abilities: pokemonArray[index].abilities,
     });
+}
+
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) {
+        loader.classList.remove("hidden");
+    }
+}
+
+function closeLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) {
+        loader.classList.add("hidden");
+    }
 }
 
 getPokemonApi();
