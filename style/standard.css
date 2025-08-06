@@ -12,29 +12,22 @@
 }
 
 main {
+    width: 100%;
+    height: auto;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    background: rgb(144, 144, 71);
 }
 
-header,
-section,
-footer {
+.content {
     width: 100%;
+    max-width: 1920px;
+    height: auto;
     display: flex;
     justify-content: center;
-
-    .content {
-        width: 100%;
-        max-width: 1920px;
-        height: 100dvh;
-        display: flex;
-        flex-direction: column;
-    }
 }
 
 body {
+    background: yellow;
     font-family: "Pokemon Hollow", sans-serif;
 }
 /* #endregion */
@@ -44,6 +37,8 @@ header {
     width: 100%;
     height: 10dvh;
     background: #e0c068;
+    display: flex;
+    justify-content: center;
 
     .content {
         height: 10dvh;
@@ -105,14 +100,9 @@ header {
         padding-left: 10px;
         text-align: left;
         border: none;
-
-        /* @media(max-width: 870px) {
-            width: 120px;
-        } */
     }
 }
 /* #endregion */
-
 
 .d_none {
     display: none;
@@ -126,10 +116,9 @@ header {
     overflow: hidden;
 }
 
-
 /* #region typeColors */
 .type {
-    display: inline-block;
+    display: flex;
     padding: 4px 8px;
     margin: 2px;
     border-radius: 8px;
@@ -139,60 +128,77 @@ header {
 }
 
 .type.fire {
-    background-color: #f08030;
+    background: #f08030;
 }
 .type.water {
-    background-color: #6890f0;
+    background: #6890f0;
 }
 .type.grass {
-    background-color: #78c850;
+    background: #78c850;
 }
 .type.electric {
-    background-color: #f8d030;
+    background: #f8d030;
     color: black;
 }
 .type.normal {
-    background-color: #a8a878;
+    background: #a8a878;
 }
 .type.flying {
-    background-color: #a890f0;
+    background: #a890f0;
 }
 .type.poison {
-    background-color: #a040a0;
+    background: #a040a0;
 }
 .type.ground {
-    background-color: #e0c068;
+    background: #e0c068;
 }
 .type.bug {
-    background-color: #a8b820;
+    background: #a8b820;
 }
 .type.rock {
-    background-color: #b8a038;
+    background: #b8a038;
 }
 .type.ghost {
-    background-color: #705898;
+    background: #705898;
 }
 .type.steel {
-    background-color: #b8b8d0;
+    background: #b8b8d0;
 }
 .type.psychic {
-    background-color: #f85888;
+    background: #f85888;
 }
 .type.ice {
-    background-color: #98d8d8;
+    background: #98d8d8;
 }
 .type.dragon {
-    background-color: #7038f8;
+    background: #7038f8;
 }
 .type.dark {
-    background-color: #705848;
+    background: #705848;
 }
 .type.fairy {
-    background-color: #f0b6bc;
+    background: #f0b6bc;
+}
+.type.fighting {
+    background: #808080;
 }
 /* #endregion */
 
-/* #region loadBtn */
+/* #region footer */
+footer {
+    width: 100%;
+    height: 10dvh;
+    background: #e0c068;
+    display: flex;
+    justify-content: center;
+
+    .content {
+        height: 10dvh;
+        padding: 0;
+    }
+}
+/* #endregion */
+
 .loadBtn {
     display: flex;
     justify-content: center;
@@ -212,17 +218,3 @@ header {
         box-shadow: 5px 5px 10px black;
     }
 }
-/* #endregion */
-
-/* #region footer */
-footer {
-    width: 100%;
-    height: 10dvh;
-    background: #e0c068;
-
-    .content {
-        height: 10dvh;
-        padding: 0;
-    }
-}
-/* #endregion */

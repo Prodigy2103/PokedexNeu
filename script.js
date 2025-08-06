@@ -120,16 +120,20 @@ function renderTypes(index, array) {
 function search() {
     const inputRef = document.getElementById("searchBar"); // Holt sich eine Referenz zum Eingabefeld.
     const inputValue = inputRef.value.toLowerCase(); // Speichert den eingegebenen Wert in Kleinbuchstaben.
+    
+    if (inputValue.length < 3 && inputValue !== "") {
+        return;}
 
-    const result = pokemonArray.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(inputValue) // Filtert das pokemonArray nach Pokémon, deren Name den Suchtext enthält (unabhängig von Groß-/Kleinschreibung)
+    const result = pokemonArray.filter(
+        (pokemon) => pokemon.name.toLowerCase().includes(inputValue) // Filtert das pokemonArray nach Pokémon, deren Name den Suchtext enthält (unabhängig von Groß-/Kleinschreibung)
     );
 
-    if (inputValue === "") { // Prüft, ob das Eingabefeld leer ist.
+    if (inputValue === "") {
+        // Prüft, ob das Eingabefeld leer ist.
         renderCards(pokemonArray); // Zeige alle
     } else {
         renderCards(result); // Zeige nur die gefilterten Pokémon.
-    }  
+    }
 }
 // #endregion
 
@@ -222,7 +226,8 @@ function renderInfo(index) {
 // #region loader show and close
 function showLoader() {
     const loader = document.getElementById("loader"); // Sucht im HTML-Dokument nach einem Element mit der ID loader und speichert es in der Variablen loader.
-    if (loader) { // Prüft, ob das Element mit der ID loader existiert (also nicht null ist).
+    if (loader) {
+        // Prüft, ob das Element mit der ID loader existiert (also nicht null ist).
         loader.classList.remove("hidden"); // Entfernt die CSS-Klasse "hidden" vom loader-Element, wodurch das Element sichtbar wird (angenommen, .hidden versteckt das Element).
     }
 }
@@ -237,4 +242,121 @@ function closeLoader() {
 
 getPokemonApi();
 
+function funktionsName() {
+
+}
+
+function funktionsName2(a, b) {
+
+} 
+
+function funktionsName2() {
+    return
+} 
+
+function funktionsName2(a, b, z) {
+    return
+} 
+
 // Erklärung zur Änderung der showCardView function stehen im Lerntagebuch
+
+// function 3 par a b c a +b *c return
+
+// funktion mit return wird wie wert behandelt
+// function test(a, b, c) {
+//     return (a + b) * c;
+// }
+
+// console.log(test(2, 3, 5));
+
+// function testTwo() {
+//     console.log((2 + 3) * 5);
+// }
+
+// testTwo();
+
+// function test3(a, b, c) {
+//     console.log((a + b) * c);
+// }
+
+// test3(2, 3, 5);
+
+// function test4() {
+//     return (2 + 3) * 5;
+// }
+
+// console.log(test4());
+
+// 1. funktion welche via for-loop die zahlen 1-5 durchläuft und diese dann in der console ausgeben
+// 1
+// 2
+// 3
+// 4
+// 5
+
+function testLoop() {
+    for (let i = 1; i <= 5; i++) {
+        console.log(i);
+    }
+}
+testLoop();
+
+function testTwoLoop(a, b, c, d, e) {
+    const numbers = [a, b, c, d, e];
+
+    for (let i = 0; i < numbers.length; i++) {
+        console.log(numbers[i]);
+    }
+}
+
+(testTwoLoop(1, 2, 3, 4, 5));
+
+function test3Loop() {
+    let output = "";
+
+    for (let i = 1; i <= 5; i++) {
+        console.log(i);
+    }
+
+    return output;
+}
+
+console.log(test3Loop());
+
+function test4Loop(start, end) {
+    let output = "";
+
+    for (let i = start; i <= end; i++) {
+        console.log(i);
+    }
+
+    return output;
+}
+
+console.log(test4Loop(1, 5));
+
+// 2. funktion für die flächenberechnung eines quadrats
+
+function test(a) {
+    return (a * a);
+}
+
+console.log(test(6));
+
+function testTwo() {
+    console.log(6 * 6);
+}
+
+testTwo();
+
+function test3(a) {
+    console.log(a * a);
+}
+
+test3(6);
+
+function test4() {
+    return 6 * 6;
+}
+
+console.log(test4());

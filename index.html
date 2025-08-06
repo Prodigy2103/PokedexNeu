@@ -27,10 +27,7 @@
                     <img src="./assets/icon/lock.png" alt="" />
                 </div>
                 <form action="">
-                    <input
-                        type="text"
-                        id="searchBar"
-                        placeholder="search"/>
+                    <input type="text" id="searchBar" placeholder="search" />
 
                     <button type="button" id="searchButton" onclick="search()">
                         Search
@@ -41,24 +38,26 @@
         <!-- #endregion -->
 
         <main>
+            <div class="content">
             <div id="loader">
                 <img src="assets/icon/pokeball.png" alt="Pokéball Loader" />
             </div>
 
-            <section id="pokeCards" class="content">
+            <section id="pokeCards">
             </section>
-
-            <div class="loadBtn">
-                <button type="button" onclick="getPokemonApi()">
-                    load more
-                </button>
-            </div>
         </main>
-
+        <div class="loadBtn">
+        <button type="button" onclick="getPokemonApi()">
+            load more
+        </button>
+        </div>
+        </div>
         <section
-            id="singleCard" class="d_none" onclick="closeViewCard()">
-        </section>
-
+            id="singleCard"
+            class="d_none"
+            onclick="closeViewCard()"
+        ></section>
+        </main>
         <footer>
             <div class="content">© Design by Gühne, Marcus</div>
         </footer>

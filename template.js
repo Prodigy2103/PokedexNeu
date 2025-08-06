@@ -1,11 +1,11 @@
 function getCardView({ spiritOne, id, name, index }) {
     return `
-        <div class="card" onclick="showCardView(${index})">
-            <img src="${spiritOne}" alt="${name}" /><br>
-            <p>#${id}</p>
-            <h2> ${name}</h2>
-            <div id="types${index}" class="typesContainer"></div>
-        </div>
+            <div class="card" onclick="showCardView(${index})">
+                    <img src="${spiritOne}" alt="${name}" /><br>
+                    <p>#${id}</p>
+                    <h2>${name}</h2>
+                    <div id="types${index}" class="typesContainer"></div>
+                </div>
     `;
 }
 

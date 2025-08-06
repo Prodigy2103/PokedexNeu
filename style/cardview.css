@@ -1,78 +1,76 @@
-.content {
+#pokeCards {
     width: 100%;
-    max-width: 1920px;
     height: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
     padding: 5rem 0;
 
     .card {
-        background-color: white;
-        border-radius: 15px;
-        height: 20rem;
-        width: 20rem;
-        margin: 2.4rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        transition: 0.3s;
-        cursor: pointer;
-        font-weight: 100;
-
-        img {
-            height: 10rem;
-            width: 10rem;
-            object-position: bottom;
-            position: absolute;
-            top: -25%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            filter: drop-shadow(4px 4px 8px black);
-        }
-
-        h2 {
-            font-size: calc(16px + 1dvw);
-        }
-
-        p {
-            font-size: calc(16px + 0.7dvw);
-            text-align: center;
-            width: 100%;
-            height: 3rem;
-        }
-
-        .cardInfos {
-            width: 90%;
-            height: 60%;
+            background-color: white;
+            border-radius: 15px;
+            height: 20rem;
+            width: 20rem;
+            margin: 2.4rem;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: space-around;
+            align-items: center;
+            transition: 0.3s;
+            cursor: pointer;
+            font-weight: 100;
+
+            img {
+                height: 10rem;
+                width: 10rem;
+                object-position: bottom;
+                position: absolute;
+                top: -25%;
+                left: 50%;
+                transform: translate(-50%, 0);
+                filter: drop-shadow(4px 4px 8px black);
+            }
+
+            h2 {
+                font-size: calc(16px + 1dvw);
+            }
+
+            p {
+                font-size: calc(16px + 0.7dvw);
+                text-align: center;
+                width: 100%;
+                height: 3rem;
+            }
+
+            .cardInfos {
+                width: 90%;
+                height: 60%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+            }
         }
-    }
 
-    .card:hover {
-        box-shadow: 5px 5px 10px black;
-    }
+        .card:hover {
+            box-shadow: 5px 5px 10px black;
+        }
 
-    .typesContainer {
-        display: flex;
-        justify-content: center;
-        padding: 5px;
-        width: 100%;
-    }
+        .typesContainer {
+            display: flex;
+            justify-content: center;
+            padding: 5px;
+            width: 100%;
+        }
 
-    .type {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px;
-        color: black;
-        font-size: calc(16px + 0.5dvw);
-        width: 50%;
-        height: 5dvh;
-    }
+        .type {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            color: black;
+            font-size: calc(16px + 0.5dvw);
+            width: 50%;
+            height: 5dvh;
+        }
 }
