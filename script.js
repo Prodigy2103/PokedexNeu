@@ -1,7 +1,4 @@
 class pokemonInfo {
-    // #region attributes
-
-    // Deklariert die Eigenschaft des Pokemons
     name;
     spiritOne;
     spiritTwo;
@@ -13,16 +10,14 @@ class pokemonInfo {
     abilities = [];
 
     stats = {
-        // Deklariert 'statics' als Objekt, das die Basiswerte (Statistiken) des Pokemons enthält.
         hp: 0,
         attack: 0,
         defense: 0,
         specialAttack: 0,
         specialDefense: 0,
         speed: 0,
-    }; // #endregion
+    };
 
-    // Der 'constructor' ist die Methode, die automatisch aufgerufen wird, wenn ein neues Objekt der Klasse erstellt wird.
     constructor({
         _Name,
         _SpiritOne,
@@ -33,12 +28,11 @@ class pokemonInfo {
         _Height,
         _Statics,
     }) {
-        // console.log("Stat-Werte:", _Statics);
         this.name = _Name;
         this.spiritOne = _SpiritOne;
         this.id = _Index;
-        this.type = _Type.map((t) => t.type.name); // Die map()-Funktion geht jedes Element im Array _Type durch. Für jedes Element t wird t.type.name extrahiert – also der name-Wert aus dem type-Objekt.
-        this.abilities = _Abilities.map((a) => a.ability.name); // Extrahiert die Namen aller Fähigkeiten aus dem Array _Abilities. map-Funktion: Wandelt jedes Element in _Abilities um. a.ability.name: Greift auf den Namen der Fähigkeit zu. Ein neues Array mit nur den Fähigkeitsnamen wird this.abilities zugewiesen.
+        this.type = _Type.map((t) => t.type.name);
+        this.abilities = _Abilities.map((a) => a.ability.name);
         this.weight = _Weight;
         this.height = _Height;
         this.statics = _Statics;
@@ -48,7 +42,9 @@ class pokemonInfo {
 const pokemonArray = [];
 let currentPokemonOffset = 0;
 let currentViewIndex = 0;
+let currentCardArray = []; // ← aktives Array merken (normal oder Suche)
 
+// #region async function
 async function getPokemonApi() {
     showLoader();
 
@@ -83,12 +79,19 @@ async function getPokemonApi() {
 
     currentPokemonOffset += limit;
     renderCards(pokemonArray);
-    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex);
+    renderSingleViewCard(
+        pokemonArray[currentViewIndex],
+        currentViewIndex,
+        pokemonArray
+    );
 
     closeLoader();
 }
-// #region renderCards and types
+// #endregion
+
+// #region renderCards
 function renderCards(array) {
+    currentCardArray = array; // ← aktives Array setzen
     const cardSectionRef = document.getElementById("pokeCards");
     cardSectionRef.innerHTML = "";
 
@@ -100,53 +103,70 @@ function renderCards(array) {
             index: i,
         });
 
-        // Jetzt die Typen für jede Karte einfügen
         renderTypes(i, array);
     }
 }
 
 function renderTypes(index, array) {
     const typeRef = document.getElementById("types" + index);
-    if (!typeRef) return; // Wenn typeRef nicht gefunden wurde (also null oder undefined ist), bricht die Funktion ab und macht nichts weiter. Das verhindert Fehler, falls das Element nicht existiert.
+    if (!typeRef) return;
     typeRef.innerHTML = "";
 
     for (let i = 0; i < array[index].type.length; i++) {
-        typeRef.innerHTML += getTypeInfo(array[index].type[i]); // getTypeInfo(array[index].type[i]) wird aufgerufen und bekommt als Argument den jeweiligen Typ, z.B. "fire". Das Ergebnis dieser Funktion (vermutlich ein HTML-String) wird an den aktuellen Inhalt von typeRef.innerHTML angehängt (+= heißt "hinzufügen").
+        typeRef.innerHTML += getTypeInfo(array[index].type[i]);
     }
 }
 // #endregion
 
 // #region searchBar
+// function search() {
+//     const inputRef = document.getElementById("searchBar");
+//     const inputValue = inputRef.value.trim().toLowerCase();
+
+//     if (inputValue === "") {
+//         // Bei leerem Suchfeld alle Pokémon anzeigen
+//         renderCards(pokemonArray);
+//         document.getElementById("singleCard").innerHTML = ""; // Single Card leeren
+//         return;
+//     }
+
+//     if (inputValue.length < 3) {
+//         // Weniger als 3 Zeichen -> nichts ändern
+//         return;
+//     }
+
+//     // Filter basierend auf dem Input
+//     const result = pokemonArray.filter(pokemon =>
+//         pokemon.name.toLowerCase().includes(inputValue)
+//     );
+
+//     renderCards(result);
+// }
+
 function search() {
-    const inputRef = document.getElementById("searchBar"); // Holt sich eine Referenz zum Eingabefeld.
-    const inputValue = inputRef.value.toLowerCase(); // Speichert den eingegebenen Wert in Kleinbuchstaben.
-    
-    if (inputValue.length < 3 && inputValue !== "") {
-        return;}
+    const inputRef = document.getElementById('searchBar');
+    const inputValue = inputRef.value.toLowerCase();
 
-    const result = pokemonArray.filter(
-        (pokemon) => pokemon.name.toLowerCase().includes(inputValue) // Filtert das pokemonArray nach Pokémon, deren Name den Suchtext enthält (unabhängig von Groß-/Kleinschreibung)
-    );
+    if (inputValue.length >= 3) {
+        const result = pokemonArray.filter(pokemon => pokemon.name.toLowerCase().includes(inputValue))
 
-    if (inputValue === "") {
-        // Prüft, ob das Eingabefeld leer ist.
-        renderCards(pokemonArray); // Zeige alle
-    } else {
-        renderCards(result); // Zeige nur die gefilterten Pokémon.
+        renderCards(result);
+    } if (inputValue == "") {
+        renderCards(pokemonArray);
     }
 }
 // #endregion
 
-// #region singleViewCard
-function renderSingleViewCard(pokemon, index) {
+// #region singleViewCrad
+function renderSingleViewCard(pokemon, index, array = pokemonArray) {
     const viewCardRef = document.getElementById("singleCard");
-    viewCardRef.innerHTML = ""; // Container leeren
+    viewCardRef.innerHTML = "";
 
     viewCardRef.innerHTML = getSingleCardView({
         spiritOne: pokemon.spiritOne,
         id: pokemon.id,
         name: pokemon.name,
-        index: currentViewIndex,
+        index: index,
         abilities: pokemon.abilities,
         types: pokemon.type,
         height: pokemon.height,
@@ -154,43 +174,50 @@ function renderSingleViewCard(pokemon, index) {
         statics: pokemon.statics,
     });
 
-    renderTypes(index, pokemonArray);
+    renderTypes(index, array);
 }
 // #endregion
 
-// #region forward and backward button
+// #region for and backward button
 function forward() {
-    currentViewIndex = currentViewIndex + 1; // Erhöht den currentViewIndex um 1 (nächste Karte).
-
-    if (currentViewIndex >= pokemonArray.length) {
-        // Prüft, ob der Index über das Array hinausgeht.
-        currentViewIndex = 0; // Wenn ja, wird der Index wieder auf 0 gesetzt (Zirkularität).
+    currentViewIndex++;
+    if (currentViewIndex >= currentCardArray.length) {
+        currentViewIndex = 0;
     }
-
-    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex); // Zeigt die Karte an, die durch den neuen Index bestimmt wird.
+    renderSingleViewCard(
+        currentCardArray[currentViewIndex],
+        currentViewIndex,
+        currentCardArray
+    );
 }
 
 function backward() {
     currentViewIndex =
-        currentViewIndex > 0 ? currentViewIndex - 1 : pokemonArray.length - 1; // Wenn currentViewIndex größer als 0 ist, wird 1 abgezogen (zurück zur vorherigen Karte). Wenn currentViewIndex 0 ist, wird zum letzten Index des Arrays (pokemonArray.length - 1) gesprungen (Zirkularität).
-    renderSingleViewCard(pokemonArray[currentViewIndex], currentViewIndex); // Zeigt die Karte an, die jetzt durch currentViewIndex bestimmt wird.
+        currentViewIndex > 0
+            ? currentViewIndex - 1
+            : currentCardArray.length - 1;
+    renderSingleViewCard(
+        currentCardArray[currentViewIndex],
+        currentViewIndex,
+        currentCardArray
+    );
 }
 // #endregion
 
-// #region show and clos ViewCard
+// #region show and close cardView
 function showCardView(index) {
-    const CardViewRef = document.getElementById("singleCard"); // Holt das DOM-Element mit der ID singleCard.
-    CardViewRef.classList.add("d-flex"); // Fügt die CSS-Klasse d-flex hinzu, damit die Karte sichtbar und als flex-container angezeigt wird.
-    document.body.classList.add("no-scroll"); // Verhindert das Scrollen der Seite (Body overflow hidden).
+    const CardViewRef = document.getElementById("singleCard");
+    CardViewRef.classList.add("d-flex");
+    document.body.classList.add("no-scroll");
 
-    currentViewIndex = index; // 👉 Damit Vor/Zurück auch funktioniert
-    renderSingleViewCard(pokemonArray[index]); // Setzt currentViewIndex auf den angeklickten Index (damit Vor- und Zurück-Buttons korrekt arbeiten).
+    currentViewIndex = index;
+    renderSingleViewCard(currentCardArray[index], index, currentCardArray);
 }
 
 function closeViewCard() {
-    const CardViewRef = document.getElementById("singleCard"); // Holt wieder das singleCard-Element.
-    CardViewRef.classList.remove("d-flex"); // Entfernt die Sichtbarkeitsklasse, sodass die Ansicht ausgeblendet wird.
-    document.body.classList.remove("no-scroll"); // Erlaubt wieder das Scrollen der Seite.
+    const CardViewRef = document.getElementById("singleCard");
+    CardViewRef.classList.remove("d-flex");
+    document.body.classList.remove("no-scroll");
 }
 // #endregion
 
@@ -242,21 +269,17 @@ function closeLoader() {
 
 getPokemonApi();
 
-function funktionsName() {
+function funktionsName() {}
 
-}
-
-function funktionsName2(a, b) {
-
-} 
+function funktionsName2(a, b) {}
 
 function funktionsName2() {
-    return
-} 
+    return;
+}
 
 function funktionsName2(a, b, z) {
-    return
-} 
+    return;
+}
 
 // Erklärung zur Änderung der showCardView function stehen im Lerntagebuch
 
@@ -309,7 +332,7 @@ function testTwoLoop(a, b, c, d, e) {
     }
 }
 
-(testTwoLoop(1, 2, 3, 4, 5));
+testTwoLoop(1, 2, 3, 4, 5);
 
 function test3Loop() {
     let output = "";
@@ -338,7 +361,7 @@ console.log(test4Loop(1, 5));
 // 2. funktion für die flächenberechnung eines quadrats
 
 function test(a) {
-    return (a * a);
+    return a * a;
 }
 
 console.log(test(6));
@@ -360,3 +383,53 @@ function test4() {
 }
 
 console.log(test4());
+
+// funktion zum berechen der Fläche eines Würfels
+function testDice() {
+    console.log(2.5 * 2.5 * 2.5);
+}
+
+testDice();
+
+function testDice2(a) {
+    console.log(a * a * a);
+}
+
+testDice(2.5);
+
+function testDice3() {
+    return 2.5 * 2.5 * 2.5;
+}
+
+console.log(testDice3());
+
+function testDice4(a) {
+    return a * a * a;
+}
+
+console.log(testDice4(2.5));
+
+// funktion um Prozente zu berechen
+function testPercent() {
+    console.log((25 * 100) / 75);
+}
+
+testPercent();
+
+function testPercentTwo(a, b, c) {
+    console.log((a * b) / c);
+}
+
+testPercentTwo(25, 100, 85);
+
+function testDiceThree() {
+    return (25 * 100) / 100;
+}
+
+console.log(testDiceThree());
+
+function testDiceFour(a, b, c) {
+    return (a * b) / c;
+}
+
+console.log(testDiceFour(25, 100, 20));
